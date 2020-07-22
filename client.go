@@ -133,6 +133,7 @@ func (c *Client) NewSession(opts ...SessionOption) (*Session, error) {
 		OutgoingWindow: s.outgoingWindow,
 		HandleMax:      s.handleMax,
 	}
+	debug(1, "Starting BEGIN for session with channel %d: %s", s.channel, s)
 	debug(1, "TX: %s", begin)
 	s.txFrame(begin, nil)
 
@@ -678,6 +679,7 @@ func (s *Session) mux(remoteBegin *performBegin) {
 				link.remoteHandle = body.Handle
 				links[link.remoteHandle] = link
 
+				debug(1, "Sending Attach for session with channel %d: %s", s.channel, s)
 				s.muxFrameToLink(link, fr.body)
 
 			case *performTransfer:
@@ -722,9 +724,12 @@ func (s *Session) mux(remoteBegin *performBegin) {
 				if !ok {
 					continue
 				}
+
+				debug(1, "Sending Detach for session with channel %d: %s", s.channel, s)
 				s.muxFrameToLink(link, fr.body)
 
 			case *performEnd:
+				debug(1, "Sending END for session with channel %d: %s", s.channel, s)
 				s.txFrame(&performEnd{}, nil)
 				s.err = errorErrorf("session ended by server: %s", body.Error)
 				return

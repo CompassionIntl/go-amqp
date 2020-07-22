@@ -412,6 +412,8 @@ func (c *conn) mux() {
 			ch := nextSession.session.channel
 			sessionsByChannel[ch] = nextSession.session
 
+			debug(1, "New Session Added for Channel %d: %s", nextSession.session.channel, nextSession)
+
 			// get next available channel
 			next, ok := channels.next()
 			if !ok {
@@ -421,6 +423,8 @@ func (c *conn) mux() {
 
 			// create the next session to send
 			nextSession = newSessionResp{session: newSession(c, uint16(next))}
+
+			debug(1, "New Session Created for Channel %d (not added to list): %s", nextSession.session.channel, nextSession)
 
 		// session deletion
 		case s := <-c.delSession:

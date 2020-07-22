@@ -7,7 +7,7 @@ import "os"
 import "strconv"
 
 var (
-	debugLevel = 1
+	debugLevel = 3
 	logger     = log.New(os.Stderr, "", log.Lmicroseconds)
 )
 
