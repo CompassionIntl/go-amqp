@@ -19,8 +19,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Azure/go-amqp"
-	"github.com/Azure/go-amqp/internal/testconn"
+	"github.com/CompassionIntl/go-amqp"
+	"github.com/CompassionIntl/go-amqp/internal/testconn"
 	"github.com/fortytw2/leaktest"
 )
 
