@@ -133,7 +133,7 @@ func (c *Client) NewSession(opts ...SessionOption) (*Session, error) {
 		OutgoingWindow: s.outgoingWindow,
 		HandleMax:      s.handleMax,
 	}
-	debug(1, "Starting BEGIN for session with channel %d: %s", s.channel, s)
+	debug(1, "Starting BEGIN for session with channel %d", s.channel)
 	debug(1, "TX: %s", begin)
 	s.txFrame(begin, nil)
 
