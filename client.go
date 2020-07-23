@@ -679,7 +679,7 @@ func (s *Session) mux(remoteBegin *performBegin) {
 				link.remoteHandle = body.Handle
 				links[link.remoteHandle] = link
 
-				debug(1, "Sending Attach for session with channel %d: %s", s.channel, s)
+				debug(1, "Sending Attach for session with channel %d", s.channel)
 				s.muxFrameToLink(link, fr.body)
 
 			case *performTransfer:
@@ -725,11 +725,11 @@ func (s *Session) mux(remoteBegin *performBegin) {
 					continue
 				}
 
-				debug(1, "Sending Detach for session with channel %d: %s", s.channel, s)
+				debug(1, "Sending Detach for session with channel %d", s.channel)
 				s.muxFrameToLink(link, fr.body)
 
 			case *performEnd:
-				debug(1, "Sending END for session with channel %d: %s", s.channel, s)
+				debug(1, "Sending END for session with channel %d", s.channel)
 				s.txFrame(&performEnd{}, nil)
 				s.err = errorErrorf("session ended by server: %s", body.Error)
 				return
